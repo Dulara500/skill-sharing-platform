@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillSwap – Learn & Teach Together</title>
@@ -72,13 +73,13 @@
             background: rgba(0,0,0,0.5); /* adjust darkness */
             z-index: 1;
         }
-    
+
         /* Make text appear above the overlay */
         .hero h1,
         .hero p {
             position: relative;
             z-index: 2;
-            
+
         }
         .hero h1{
             font-size: 50px;
@@ -159,8 +160,8 @@
     <section id="about" class="about">
         <h2 class="fs-1">About SkillSwap</h2>
         <p class="fs-2">
-            SkillSwap connects people who want to learn with those willing to teach. 
-            Users can create profiles, list skills, set learning goals, schedule sessions, 
+            SkillSwap connects people who want to learn with those willing to teach.
+            Users can create profiles, list skills, set learning goals, schedule sessions,
             and communicate using built-in messaging.
         </p>
     </section>
@@ -196,8 +197,10 @@
 
     <!-- FOOTER -->
     <footer>
+        © {{date('Y')}} SkillSwap • Learn • Teach • Grow</br>
         <i class="bi bi-facebook"></i>
-        © {{date('Y')}} SkillSwap • Learn • Teach • Grow
+        <i class="bi bi-twitter-x"></i>
+        <i class="bi bi-instagram"></i>
     </footer>
 
 </body>
