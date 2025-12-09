@@ -8,10 +8,8 @@
      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    @include('user.usernavbar');
-    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">logout</button>
+    @include('user.usernavbar')
+
     </form>
 </body>
 </html>
