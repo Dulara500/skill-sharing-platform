@@ -6,9 +6,9 @@
 
         <div class="ms-auto d-flex align-items-center gap-3">
 
-            <span>My classes</span>
+            <a href={{ route('classes') }}><span>My classes</span></a>
 
-            <i class="bi bi-bell"></i>
+            <a href={{ route('inbox') }}><i class="bi bi-bell"></i></a>
             <i class="bi bi-calendar"></i>
 
             <!-- Dropdown -->
@@ -23,9 +23,9 @@
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href={{ route('profile') }}>Profile</a></li>
                     <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">My Classes</a></li>
+                    <li><a class="dropdown-item" href={{ route('classes') }}>My Classes</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <form action="{{ route('logout') }}" method="POST">

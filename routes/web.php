@@ -19,13 +19,20 @@ Route::middleware('auth')->group(function () {
 
 
 Route::controller(UserController::class)->group(function(){
-    Route::get('/dashboard','dashboard')->name('dashboard');
+    Route::get('/dash','dash')->name('dash');
     Route::get('/inbox','inbox')->name('inbox');
     Route::get('/classes','classes')->name('classes');
     Route::get('/progress','progress')->name('progress');
     Route::get('/reviews','reviews')->name('reviews');
     Route::get('/messages','messages')->name('messages');
     Route::get('/notification','notification')->name('notification');
+    Route::get('/teaching','teaching')->name('teaching');
+    Route::get('/learning','learning')->name('learning');
+    Route::get('/mypro','mypro')->name('mypro');
+    Route::get('/stupro','stupro')->name('stupro');
+    Route::get('/stureview','stureview')->name('stureview');
+    Route::get('/teareviews','teareviews')->name('teareviews');
+    Route::get('/profile','profile')->name('profile');
 
 });
 

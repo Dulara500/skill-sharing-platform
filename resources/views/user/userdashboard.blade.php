@@ -9,11 +9,16 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/usernavbarcss.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <style>
         .menu-links a.dashboard {
             color: black;
             border-bottom: 2px solid #d33;
             padding-bottom: 4px;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
         }
     </style>
 </head>
@@ -34,16 +39,16 @@
                 <h5 class="fw-bold">Upcoming events</h5>
                 <hr>
                 <p>No upcoming events scheduled</p>
-                <a href="#">Go to calendar →</a>
+
             </div>
 
             <!-- Notifications -->
             <div class="card p-4 mb-4">
                 <h5 class="fw-bold">Notifications</h5>
                 <hr>
-                <small>04 Dec 2025</small>
+                <small>{{ Auth::user()->created_at->format('d M Y') }}</small>
                 <p>Welcome to clascity!</p>
-                <a href="#">See all notifications →</a>
+                <a href={{ route('inbox') }}>See all notifications</a>
             </div>
 
             <!-- Teaching -->
@@ -98,10 +103,12 @@
     </div>
 </div>
 
-<!-- Bootstrap Icons & JS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
 
 
 </body>
 </html>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
