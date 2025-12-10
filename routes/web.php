@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/inbox',[UserController::class, 'inbox'])->name('inbox');
+
 
 Route::controller(UserController::class)->group(function(){
     Route::get('/dashboard','dashboard')->name('dashboard');
@@ -24,6 +24,8 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/classes','classes')->name('classes');
     Route::get('/progress','progress')->name('progress');
     Route::get('/reviews','reviews')->name('reviews');
+    Route::get('/messages','messages')->name('messages');
+    Route::get('/notification','notification')->name('notification');
 
 });
 

@@ -53,6 +53,11 @@
                 <p>You are not teaching any class</p>
             </div>
 
+            <div class="card p-4 mb-4">
+                <h5 class="fw-bold">Currently learning</h5>
+                <hr>
+                <p>You are not taking any class</p>
+            </div>
         </div>
 
         @php
@@ -65,8 +70,7 @@
             <div class="card p-4 mb-4 text-center">
                 <div class="profile-pic mb-3"></div>
                 <h5 class="fw-bold">{{ Auth::user() -> name }}</h5>
-                <p class="text-muted">Joined in</p>
-                <p class="text-muted">{{ Auth::user() -> created_at -> format('Y-m-d')}}</p>
+                <p class="text-muted">Joined in {{ Auth::user() -> created_at -> format('M-Y')}}</p>
                 <button class="btn btn-outline-dark w-100">Edit profile</button>
             </div>
 

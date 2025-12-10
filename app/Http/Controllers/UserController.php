@@ -30,4 +30,10 @@ class UserController extends Controller
     {
         return view('user.userreview');
     }
+    public function messages(){
+        return view('user.messageSection.message');
+    }
+    public function notification(){
+        return view('user.messageSection.notification');
+    }
 }
