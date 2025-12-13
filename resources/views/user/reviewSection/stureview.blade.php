@@ -24,7 +24,8 @@
 </head>
 <body>
     @include('user.usernavbar')
-    <div class="container mt-4">
+    @include('user.calender')
+    <div class="container mt-4" style="padding-top: 120px;">
         <div class="row">
             <div class="col-lg-3">
                 <div class="card p-4">

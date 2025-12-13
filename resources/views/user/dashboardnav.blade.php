@@ -1,4 +1,3 @@
-
 <nav class="navbar px-4 py-3 fixed-top">
     <div class="container-fluid d-flex align-items-center">
         <div class="d-flex align-items-center">
@@ -7,7 +6,7 @@
 
         <div class="ms-auto d-flex align-items-center gap-3">
 
-            <a href={{ route('classes') }}><span class="myclass">My classes</span></a>
+            <a href={{ route('dash') }}><span class="myclass">Dashboard</span></a>
 
             <a href={{ route('inbox') }}><i class="bellicon bi bi-bell"></i></a>
 
@@ -17,7 +16,7 @@
                 <i class="bi bi-calendar"></i>
             </button>
 
-            
+
 
             <!-- Dropdown -->
             <div class="dropdown">
@@ -47,20 +46,5 @@
         </div>
 
     </div>
-
-    <div class="container mt-3 d-flex justify-content-center">
-
-        <div class="menu-links ">
-            <a href={{ route('dash') }} class="dashboard">Dashboard</a>
-            <a href={{ route('inbox') }} class="inbox">Inbox</a>
-            <a href={{ route('classes') }} class="classes">Classes</a>
-            <a href={{ route('progress') }} class="pro">Progress</a>
-            <a href={{ route('reviews') }} class="reviews">Reviews</a>
-        </div>
-    </div>
 </nav>
-
-
-
-
 

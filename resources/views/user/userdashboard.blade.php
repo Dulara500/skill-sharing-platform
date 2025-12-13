@@ -26,9 +26,9 @@
 
 
 @include('user.usernavbar')
-
+@include('user.calender')
 <!-- Main Content -->
-<div class="container mt-4">
+<div class="container mt-4" style="padding-top: 120px;">
     <div class="row">
 
         <!-- LEFT SIDE -->
@@ -102,10 +102,6 @@
 
     </div>
 </div>
-
-
-
-
 
 </body>
 </html>

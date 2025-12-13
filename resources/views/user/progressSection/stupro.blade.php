@@ -24,7 +24,8 @@
 </head>
 <body>
     @include('user.usernavbar')
-    <div class="container mt-4">
+    @include('user.calender')
+    <div class="container mt-4" style="padding-top: 120px;">
         <div class="row">
             <div class="col-lg-3">
                 <div class="card p-4">
@@ -42,7 +43,7 @@
                             <input class="form-control me-2 mt-3" type="search" placeholder="Search" aria-label="Search" />
                         </div>
 
-                        <button class="btn me-2 mt-3" data-bs-toggle="collapse" data-bs-target="#searchBar" type="submit"><i class="bi bi-search "></i></button>
+                        <button class="btn me-2 mt-3" data-bs-toggle="collapse" data-bs-target="#searchBar" type="button"><i class="bi bi-search "></i></button>
                     </form>
                     <hr>
                     <span>You are not a teacher yet</span>

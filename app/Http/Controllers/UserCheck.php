@@ -11,7 +11,7 @@ class UserCheck extends Controller
         if(Auth::check() && Auth::user()->user_type=='admin'){
             return view('admin.adminpanel');
         }else if(Auth::check() && Auth::user()->user_type=="user"){
-            return view('user.userdashboard');
+            return view('dashboard');
         }
     }
 }

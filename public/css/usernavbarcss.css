@@ -28,3 +28,33 @@ body {
 .dropdown-toggle::after {
     display: none !important;
 }
+.calendar-btn {
+    border: none;
+    background: transparent;
+    font-size: 1.4rem;
+    color: #555;
+}
+
+.calendar-btn:hover {
+    color: #0d6efd;
+}
+
+.calendar-modal {
+    border-radius: 16px;
+    padding: 10px;
+}
+
+.calendar-input {
+    padding: 12px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+}
+.myclass:hover{
+    color: #0d6efd;
+}
+.bellicon:hover{
+    color: #0d6efd;
+}
+.profile:hover{
+    color: #0d6efd;
+}

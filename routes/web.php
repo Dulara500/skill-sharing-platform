@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::controller(UserController::class)->group(function(){
+
     Route::get('/dash','dash')->name('dash');
     Route::get('/inbox','inbox')->name('inbox');
     Route::get('/classes','classes')->name('classes');
@@ -33,7 +34,7 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/stureview','stureview')->name('stureview');
     Route::get('/teareviews','teareviews')->name('teareviews');
     Route::get('/profile','profile')->name('profile');
-
+    
 });
 
 require __DIR__.'/auth.php';
