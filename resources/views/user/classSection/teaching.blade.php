@@ -46,7 +46,10 @@
 
                         <button class="btn me-2 mt-3" data-bs-toggle="collapse" data-bs-target="#searchBar" type="button"><i class="bi bi-search "></i></button>
 
-                        <button class="btn me-2 mt-3 btn btn-outline-secondary" type="submit">create a class</button>
+                        <a href="{{ route('createclass') }}" class="btn me-2 mt-3 btn btn-outline-secondary">
+                            create a class
+                        </a>
+
 
                     </form>
                     <hr>

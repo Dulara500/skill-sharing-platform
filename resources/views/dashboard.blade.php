@@ -90,7 +90,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 d-flex justify-content-center">
 
-                <div class="search-wrapper">
+                <div class="search-wrapper ">
                     <!-- Category Dropdown -->
                     <div class="dropdown">
                         <button class="btn category-btn dropdown-toggle"

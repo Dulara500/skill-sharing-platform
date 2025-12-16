@@ -58,5 +58,8 @@ class UserController extends Controller
     public function profile(){
         return view('user.userprofile');
     }
+    public function createclass(){
+        return view('user.classSection.createclass');
+    }
 
 }

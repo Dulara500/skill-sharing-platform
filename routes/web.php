@@ -34,7 +34,7 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/stureview','stureview')->name('stureview');
     Route::get('/teareviews','teareviews')->name('teareviews');
     Route::get('/profile','profile')->name('profile');
-    
+    Route::get('/createclass','createclass')->name('createclass');
 });
 
 require __DIR__.'/auth.php';
