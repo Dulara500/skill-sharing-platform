@@ -36,9 +36,9 @@
 
             <!-- Upcoming events -->
             <div class="card p-4 mb-4">
-                <h5 class="fw-bold">Upcoming events</h5>
+                <h5 class="fw-bold">Exchange skills</h5>
                 <hr>
-                <p>No upcoming events scheduled</p>
+                <span><a href={{ route('profile') }}>Tell us about what your skills and what you are interested in learning</a></span>
 
             </div>
 
@@ -55,7 +55,7 @@
             <div class="card p-4 mb-4">
                 <h5 class="fw-bold">Currently teaching</h5>
                 <hr>
-                <p>You are not teaching any class</p>
+                <p>You are teaching {{ $totalClasses }} class</p>
             </div>
 
             <div class="card p-4 mb-4">

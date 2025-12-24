@@ -9,7 +9,7 @@ class UserCheck extends Controller
 {
     public function index(){
         if(Auth::check() && Auth::user()->user_type=='admin'){
-            return view('admin.adminpanel');
+            return view('admin.dashboard');
         }else if(Auth::check() && Auth::user()->user_type=="user"){
             return view('dashboard');
         }

@@ -37,11 +37,35 @@
             </div>
             </div>
             @php
-                use Illuminate\Support\Facades\Auth
+                use Illuminate\Support\Facades\Auth;
             @endphp
+
             <div class="col lg 8">
                 <div class="card">
                     <span class="fs-2 fw-bold p-4">Hello! i'm {{ Auth::user()->name }}</span>
+                </div>
+                <div class="card my-4 ">
+                    <form action="" method="">
+                        @csrf
+                        <div class="d-flex">
+                            <div class="p-5">
+                                <label class="form-lable fw-bold">I would teach:</label>
+                                <input type="text" class="form-control" name="teach" id="teach" placeholder="eg: Guitar or Spanish">
+                            </div>
+                            <div class="p-5">
+                                <label class="form-lable fw-bold">In exchange:</label>
+                                <input type="text" class="form-control" name="exchange" id="exchange" placeholder="Marketing">
+                            </div>
+
+                        </div>
+                        <div class="ms-5 my-2">
+                            <button type="submit" class="btn btn-primary flex-fill ">
+                                Submit
+                            </button>
+                        </div>
+
+
+                    </form>
                 </div>
             </div>
         </div>

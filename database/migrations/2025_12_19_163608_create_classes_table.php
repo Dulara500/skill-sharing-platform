@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('classes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // teacher
+            $table->string('title');
+            $table->unsignedBigInteger('category_id')->nullable();
+
+            $table->string('tags')->nullable();
+            $table->text('overview')->nullable();
+
+            $table->tinyInteger('years_experience')->nullable();
+            $table->boolean('is_certified_teacher')->default(false);
+
+            $table->string('file')->nullable();
+            
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('classes');
+    }
+};

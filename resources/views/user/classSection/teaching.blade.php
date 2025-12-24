@@ -39,7 +39,7 @@
                 <div class="card p-4">
                     <span class="fw-bold">I'm teaching</span>
                     <form class="d-flex position-absolute top-0 end-0" role="search">
-
+                        @csrf
                         <div class="collapse search-slide " id="searchBar">
                             <input class="form-control me-2 mt-3" type="search" placeholder="Search" aria-label="Search" />
                         </div>
@@ -53,7 +53,13 @@
 
                     </form>
                     <hr>
-                    <span>You are not teaching any classes</span>
+                    <span class="mx-4">
+                        @foreach ($classes as $class)
+
+                            <li>{{ $class->title }}</li>
+
+                        @endforeach
+                    </span>
                 </div>
             </div>
             <div class="col-lg-3">
@@ -61,7 +67,7 @@
                     <span class="fw-bold">Summery</span>
                     <hr>
                     <span class="fst-italic text-body-secondary">Currently teaching</span>
-                    <span class="fs-2">0</span>
+                    <span class="fs-2">{{ $totalClasses}}</span>
                     <hr>
                     <span class="fst-italic text-body-secondary">Analytics (Monthly*)</span>
                     <div class="d-flex justify-content-between">
