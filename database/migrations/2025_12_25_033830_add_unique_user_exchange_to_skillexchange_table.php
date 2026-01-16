@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('skill_exchange', function (Blueprint $table) {
-            $table->id();
-            // $table->foreignID('user_Id')
-            $table->timestamps();
+        Schema::table('skillexchange', function (Blueprint $table) {
+            $table->unique(['user_id', 'exchange']);
         });
+
     }
 
     /**
@@ -23,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('skill_exchange');
+        Schema::table('skillexchange', function (Blueprint $table) {
+            $table->dropUnique(['user_id', 'exchange']);
+            // or: $table->dropUnique('skillexchange_user_id_exchange_unique');
+        });
     }
 };

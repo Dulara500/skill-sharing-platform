@@ -13,21 +13,21 @@
             <div class="col-md-3">
                 <div class="card shadow-sm p-3">
                     <h6>Total Users</h6>
-                    <h3>{{ $totalClasses }}</h3>
+                    <h3>{{ $usercount}}</h3>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="card shadow-sm p-3">
-                    <h6>Active Teachers</h6>
-                    <h3>342</h3>
+                    <h6>Certified Teachers</h6>
+                    <h3>{{ $tcount }}</h3>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="card shadow-sm p-3">
                     <h6>Skills Listed</h6>
-                    <h3>122</h3>
+                    <h3>{{ $totalClasses }}</h3>
                 </div>
             </div>
 

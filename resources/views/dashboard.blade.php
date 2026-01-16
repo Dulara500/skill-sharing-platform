@@ -135,7 +135,7 @@
             </p>
 
             <div class="d-flex gap-3 flex-wrap">
-              <a href="{{ route('learning') }}" class="btn btn-primary rounded-pill px-4">
+              <a href="{{ route('learning') }}" class="btn btn-outline-primary rounded-pill px-4">
                 Learn a Skill
               </a>
               <a href="{{ route('teaching') }}" class="btn btn-outline-primary rounded-pill px-4">

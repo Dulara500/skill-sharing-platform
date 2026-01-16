@@ -7,10 +7,10 @@
                 <h4 class="text-center text-primary mb-4">SkillSwap Admin</h4>
 
             <li class="nav-item mb-2">
-                <span><a href="" class="nav-link sidebar-link text-dark">📊 Dashboard</a></span>
+                <span><a href="{{ route('admin.dashboard') }}" class="nav-link sidebar-link text-dark">📊 Dashboard</a></span>
             </li>
             <li class="nav-item my-2">
-                <span><a href="" class="nav-link sidebar-link text-dark">👥 User</a></span>
+                <span><a href={{ route('admin.users') }} class="nav-link sidebar-link text-dark">👥 User</a></span>
             </li>
             <li class="nav-item my-2">
                 <span><a href="" class="nav-link sidebar-link text-dark">🚨 Reports</a></span>
@@ -33,5 +33,6 @@
 <div class="col-md-10 offset-md-2 mt-3">
 
     @yield('admin_content')
+    @yield('users')
 </div>
 @endsection

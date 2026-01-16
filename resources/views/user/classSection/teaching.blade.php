@@ -81,6 +81,9 @@
 
                 </div>
             </div>
+            <div>
+                <h2 class="text-primary flex position-absolute top-50 start-40"><a href={{ route('profile') }}>Skill share section</a> </h2>
+            </div>
 
         </div>
     </div>

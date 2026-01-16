@@ -47,7 +47,7 @@
                 <h5 class="fw-bold">Notifications</h5>
                 <hr>
                 <small>{{ Auth::user()->created_at->format('d M Y') }}</small>
-                <p>Welcome to clascity!</p>
+                <p>Welcome to Skillshare!</p>
                 <a href={{ route('inbox') }}>See all notifications</a>
             </div>
 
@@ -56,6 +56,12 @@
                 <h5 class="fw-bold">Currently teaching</h5>
                 <hr>
                 <p>You are teaching {{ $totalClasses }} class</p>
+
+                <span class="mx-4">
+                    @foreach ($classes as $class)
+                        <li>{{ $class->title }}</li>
+                    @endforeach
+                </span>
             </div>
 
             <div class="card p-4 mb-4">

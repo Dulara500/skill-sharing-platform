@@ -3,6 +3,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserCheck;
+use App\Http\Controllers\AdminController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,7 +20,9 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::controller(UserController::class)->group(function(){
+Route::controller(UserController::class)
+    ->middleware('auth')
+    ->group(function(){
 
     Route::get('/dash','dash')->name('dash');
     Route::get('/inbox','inbox')->name('inbox');
@@ -36,8 +40,26 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/profile','profile')->name('profile');
     Route::get('/createclass','createclass')->name('createclass');
     Route::post('/storeClass','storeClass')->name('storeClass');
+    Route::post('/skillexchange','storeExchageSkills')->name('skillexchange');
+    Route::get('/matching','matchMaking')->name('matching');
+
 
 });
+
+Route::controller(AdminController::class)
+    ->middleware('admin')
+    ->group(function(){
+
+    Route::get('/admin/users','users')->name('admin.users');
+    Route::get('/admin/dashboard','dashboard')->name('admin.dashboard');
+    Route::post('/admin/delete/{id}','deleteUser')->name('admin.deleteUser');
+
+});
+
+
+
+
+
 
 
 

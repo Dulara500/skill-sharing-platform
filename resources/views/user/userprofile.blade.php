@@ -45,11 +45,13 @@
                     <span class="fs-2 fw-bold p-4">Hello! i'm {{ Auth::user()->name }}</span>
                 </div>
                 <div class="card my-4 ">
-                    <form action="" method="">
+                    <h3 class="ms-5 mt-4">Match making secssion</h3>
+                    <hr>
+                    <form action="{{ route('skillexchange') }}" method="post">
                         @csrf
                         <div class="d-flex">
                             <div class="p-5">
-                                <label class="form-lable fw-bold">I would teach:</label>
+                                <label class="form-lable fw-bold">willing to teach:</label>
                                 <input type="text" class="form-control" name="teach" id="teach" placeholder="eg: Guitar or Spanish">
                             </div>
                             <div class="p-5">
@@ -58,7 +60,7 @@
                             </div>
 
                         </div>
-                        <div class="ms-5 my-2">
+                        <div class="d-flex justify-content-center m-1">
                             <button type="submit" class="btn btn-primary flex-fill ">
                                 Submit
                             </button>
@@ -66,6 +68,18 @@
 
 
                     </form>
+                </div>
+                <div class="card mb-5">
+                    <h3 class="ms-5 mt-4">Don't have anything to share?</br> Dont worry we got you</h3>
+                    <hr>
+                    <h4 class="ms-5">Pay and learn</h4>
+                    <div >
+                        <form class="d-flex mx-5 mb-5" role="search">
+                          <input class="form-control me-2" type="search" placeholder="Search for what you wanna learn" aria-label="Search"/>
+                          <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>

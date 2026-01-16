@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Classes;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\skillexchange;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Course;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -20,6 +23,7 @@ class UserController extends Controller
 
     public function classes()
     {
+
         return view('user.classSection.teaching');
     }
 
@@ -73,26 +77,69 @@ class UserController extends Controller
         'is_certified_teacher' => 'required|in:yes,no',
         'file' => 'nullable|file|max:10240',
     ]);
+        $course = new Course();
+        $course->user_id = auth()->id();
+        $course->title = $request->title;
+        $course->category_id = $request->category_id;
+        $course->tags = $request->tags;
+        $course->overview = $request->overview;
+        $course->years_experience = $request->years_experience;
+        $course->is_certified_teacher = $request->is_certified_teacher === 'yes';
 
-    $classes = new Classes();
-    $classes->user_id = auth()->id();
-    $classes->title = $request->title;
-    $classes->category_id = $request->category_id;
-    $classes->tags = $request->tags;
-    $classes->overview = $request->overview;
-    $classes->years_experience = $request->years_experience;
-    $classes->is_certified_teacher = $request->is_certified_teacher === 'yes';
+        if ($request->hasFile('file')) {
+            $filename = time().'.'.$request->file->getClientOriginalExtension();
+            $request->file->move(public_path('material'), $filename);
+            $course->file = $filename;
+        }
 
-    if ($request->hasFile('file')) {
-        $filename = time().'.'.$request->file->getClientOriginalExtension();
-        $request->file->move(public_path('material'), $filename);
-        $classes->file = $filename;
+          $course->save();
+
+        return redirect()->route('teaching');
     }
 
-    $classes->save();
+    public function storeExchageSkills(Request $request){
+        $request->validate([
+            'teach' => 'required|string',
+            'exchange' => 'required|string',
+        ]);
 
-    return redirect()->route('teaching');
+        $skillarray = array_map(
+            'trim',
+            explode(',',$request->teach)
+        );
+
+        $user_id = auth()->id();
+        $exchange =$request->exchange;
+        skillexchange::firstOrCreate(
+            [
+            'user_id'  => $user_id,
+            'exchange' => $exchange,
+            ],
+            [
+            'teach'    => $skillarray,
+            ]
+        );
+        return redirect()->route('matching');
     }
+
+    public function matchMaking(){
+        $currentUserId = Auth::id();
+        $currentUserexchange = skillexchange::where('user_id',$currentUserId)->value('exchange');
+        $matches = Course::where('user_id','!=',$currentUserId)
+            ->where('title',$currentUserexchange)
+            ->get();
+        if ($matches->isNotEmpty()) {
+            $matchinguser = User::where('id', $matches->first()->user_id)->value('name');
+        } else {
+            $matchinguser = null;
+        }
+        $exchange = Course::where('user_id',$currentUserId)->value('title');
+        return view('user.matchmaking',compact('matches','currentUserexchange','matchinguser','exchange'));
+    }
+
+
+
+
 
 
 }
