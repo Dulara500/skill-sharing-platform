@@ -195,7 +195,7 @@
               <div class="col-md-4">
                 <div class="card p-3 shadow-sm rounded-4">
                   <span class="text-muted">Classes Teaching</span>
-                  <h3 class="fw-bold">0</h3>
+                  <h3 class="fw-bold">{{ $totalClasses }}</h3>
                 </div>
               </div>
 

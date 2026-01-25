@@ -36,8 +36,9 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             }
             $view->with('tcount', Course::where('is_certified_teacher', true)->count());
+            $view->with('totalClasses', Course::distinct('title')->count('title'));
         });
         view::share('usercount',DB::table('users')->where('user_type','!=','admin')->count());
-        view::share('totalClasses',Course::count());
+        view::share('totalClasses', Course::distinct('title')->count('title'));
     }
 }
