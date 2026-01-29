@@ -67,7 +67,20 @@
             <div class="card p-4 mb-4">
                 <h5 class="fw-bold">Currently learning</h5>
                 <hr>
-                <p>You are not taking any class</p>
+                <span>
+                    @if($cl->isEmpty())
+                            <p>You haven't joined any classes yet</p>
+                        @else
+                            <p>you have {{ $no}} lessons</p>
+                            @foreach ($cl as $class)
+                                <ul>
+                                    <li>{{ $class->course_title }}</li>
+                                </ul>
+                            @endforeach
+                        @endif
+                </span>
+
+
             </div>
         </div>
 

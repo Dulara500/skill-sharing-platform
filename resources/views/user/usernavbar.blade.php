@@ -17,7 +17,7 @@
                 <i class="bi bi-calendar"></i>
             </button>
 
-            
+
 
             <!-- Dropdown -->
             <div class="dropdown">
@@ -51,6 +51,7 @@
     <div class="container mt-3 d-flex justify-content-center">
 
         <div class="menu-links ">
+            <a href={{ route('dashboard') }} style="position: fixed; left:70px; top:60px"><i class="bi bi-house-door fs-2"></i></a>
             <a href={{ route('dash') }} class="dashboard">Dashboard</a>
             <a href={{ route('inbox') }} class="inbox">Inbox</a>
             <a href={{ route('classes') }} class="classes">Classes</a>

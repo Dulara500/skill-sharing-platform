@@ -47,7 +47,21 @@
                         <button class="btn me-2 mt-3" data-bs-toggle="collapse" data-bs-target="#searchBar" type="button"><i class="bi bi-search "></i></button>
                     </form>
                     <hr>
-                    <span>You haven't joined any class yet</span>
+                    <span>
+
+
+                        @if($classes->isEmpty())
+                            <p>You haven't joined any classes yet</p>
+                        @else
+                            @foreach ($classes as $class)
+                                <ul>
+                                    <li>{{ $class->course_title }}</li>
+                                </ul>
+                            @endforeach
+                        @endif
+
+
+                    </span>
                 </div>
             </div>
             <div class="col-lg-3">
@@ -55,7 +69,7 @@
                     <span class="fw-bold">Summery</span>
                     <hr>
                     <span class="fst-italic text-body-secondary">Currently learning</span>
-                    <span class="fs-2">0</span>
+                    <span class="fs-2">{{ $noOfLessons }}</span>
                     <hr>
                     <span class="fst-italic text-body-secondary">Analytics (Monthly*)</span>
                     <div class="d-flex justify-content-between">

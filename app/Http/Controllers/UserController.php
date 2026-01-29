@@ -7,13 +7,17 @@ use App\Models\skillexchange;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Learning;
 
 class UserController extends Controller
 {
 
     public function dash()
     {
-        return view('user.userdashboard');
+        $currentUserId = Auth::id();
+        $cl = Learning::where('user_id',$currentUserId)->get();
+        $no  = Learning::where('user_id',$currentUserId)->count();
+        return view('user.userdashboard', compact('no','cl'));
     }
 
     public function inbox()
@@ -29,31 +33,49 @@ class UserController extends Controller
 
     public function progress()
     {
-       return view('user.progressSection.stupro');
+        $currentUserId = Auth::id();
+        $noofStudents = Learning::where('teacher_id',$currentUserId)->count();
+        $studentnames = Learning::where('teacher_id',$currentUserId)->with('user')->get();
+        return view('user.progressSection.stupro', compact('noofStudents','studentnames'));
     }
 
     public function reviews()
     {
         return view('user.reviewSection.stureview');
     }
+
     public function messages(){
         return view('user.messageSection.message');
     }
+
     public function notification(){
         return view('user.messageSection.notification');
     }
+
     public function teaching(){
         return view('user.classSection.teaching');
     }
+
     public function learning(){
-        return view('user.classSection.learning');
+        $currentUserId = Auth::id();
+        $classes = Learning::where('user_id',$currentUserId)->get();
+        $noOfLessons  = Learning::where('user_id',$currentUserId)->count();
+        return view('user.classSection.learning', compact('noOfLessons','classes'));
     }
+
     public function mypro(){
-        return view('user.progressSection.mypro');
+        $currentUserId = Auth::id();
+        $noofTeachers = Learning::where('user_id',$currentUserId)->distinct()->get('teacher_id')->count();
+        $teachersName = Learning::where('user_id',$currentUserId)->with('user')->get();
+        return view('user.progressSection.mypro', compact('noofTeachers','teachersName'));
     }
     public function stupro(){
-        return view('user.progressSection.stupro');
+        $currentUserId = Auth::id();
+        $noofStudents = Learning::where('teacher_id',$currentUserId)->count();
+        $studentnames = Learning::where('teacher_id',$currentUserId)->with('user')->get();
+        return view('user.progressSection.stupro', compact('noofStudents','studentnames'));
     }
+
     public function stureview(){
         return view('user.reviewSection.stureview');
     }
@@ -65,6 +87,9 @@ class UserController extends Controller
     }
     public function createclass(){
         return view('user.classSection.createclass');
+    }
+    public function success(){
+        return view('user.addedClass');
     }
 
     public function storeClass(Request $request){
@@ -110,32 +135,56 @@ class UserController extends Controller
 
         $user_id = auth()->id();
         $exchange =$request->exchange;
-        skillexchange::firstOrCreate(
+        skillexchange::updateOrCreate(
             [
             'user_id'  => $user_id,
-            'exchange' => $exchange,
             ],
             [
             'teach'    => $skillarray,
+            'exchange' => $exchange,
             ]
         );
         return redirect()->route('matching');
     }
 
-    public function matchMaking(){
+    public function matchMaking()
+    {
         $currentUserId = Auth::id();
-        $currentUserexchange = skillexchange::where('user_id',$currentUserId)->value('exchange');
-        $matches = Course::where('user_id','!=',$currentUserId)
-            ->where('title',$currentUserexchange)
-            ->get();
-        if ($matches->isNotEmpty()) {
-            $matchinguser = User::where('id', $matches->first()->user_id)->value('name');
-        } else {
-            $matchinguser = null;
+
+        $me = skillexchange::where('user_id',$currentUserId)->first();
+
+        if(!$me){
+            return view('user.matchmaking', ['matches' => collect()]);
         }
-        $exchange = Course::where('user_id',$currentUserId)->value('title');
-        return view('user.matchmaking',compact('matches','currentUserexchange','matchinguser','exchange'));
+
+        $myTeaches = $me->teach;      // array
+        $myWant    = $me->exchange;   // string
+
+        $matches = skillexchange::where('user_id','!=',$currentUserId)
+            ->where(function($q) use ($myTeaches, $myWant) {
+
+                $q->whereIn('exchange', $myTeaches)
+                  ->whereJsonContains('teach', $myWant);
+
+            })
+            ->with('user')
+            ->get();
+
+        return view('user.matchmaking', compact('matches'));
     }
+
+
+
+    public function learn(Request $request){
+        Learning::firstOrCreate([
+            'user_id' => auth()->id(),
+            'teacher_id' => $request->teacher_id,
+            'course_title' => $request->course_title,
+        ]);
+        return redirect()->route('learning.success');
+    }
+
+
 
 
 

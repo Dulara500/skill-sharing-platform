@@ -6,5 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Learning extends Model
 {
-    protected $table = 'learning';
+    protected $fillable = [
+        'user_id',
+        'teacher_id',
+        'course_title',
+        'is_completed',
+    ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

@@ -35,10 +35,11 @@ class AppServiceProvider extends ServiceProvider
                     'classes' => collect(),
                 ]);
             }
-            $view->with('tcount', Course::where('is_certified_teacher', true)->count());
-            $view->with('totalClasses', Course::distinct('title')->count('title'));
+            $view->with('tcount', Course::where('is_certified_teacher', true)->distinct('user_id')->count());
+            $view->with('coursecount', Course::distinct('title')->count('title'));
+
         });
         view::share('usercount',DB::table('users')->where('user_type','!=','admin')->count());
-        view::share('totalClasses', Course::distinct('title')->count('title'));
+        view::share('totalClasses', Course::distinct()->count('title'));
     }
 }

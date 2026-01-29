@@ -27,7 +27,7 @@
             <div class="col-md-3">
                 <div class="card shadow-sm p-3">
                     <h6>Skills Listed</h6>
-                    <h3>{{ $totalClasses }}</h3>
+                    <h3>{{ $coursecount }}</h3>
                 </div>
             </div>
 
@@ -41,32 +41,9 @@
 
         <!-- Charts & Tables Section -->
         <div class="row mt-4">
-            <div class="col-md-8">
-                <div class="card shadow-sm p-3">
-                    <h5>User Growth</h5>
-                    <canvas id="growthChart" height="120"></canvas>
-                </div>
-            </div>
 
-            <div class="col-md-4">
-                <div class="card shadow-sm p-3">
-                    <h5>Top Skills</h5>
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between">
-                            Programming <span>124 users</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            Graphic Design <span>98 users</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            Cooking <span>54 users</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            Guitar <span>42 users</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+
+
         </div>
 
 

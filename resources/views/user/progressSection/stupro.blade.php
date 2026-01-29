@@ -46,17 +46,25 @@
                         <button class="btn me-2 mt-3" data-bs-toggle="collapse" data-bs-target="#searchBar" type="button"><i class="bi bi-search "></i></button>
                     </form>
                     <hr>
-                    <span>You are not a teacher yet</span>
+                    <span class="fst-italic text-body-secondary">
+                        @if($noofStudents == 0)
+                            You have no students yet.
+                        @else
+                            You have {{ $noofStudents }} students.
+                            @foreach ($studentnames as $student)
+                                <div class="ms-5"><i class="bi bi-person"></i> {{ $student->user->name }}</div>
+                            @endforeach
+                        @endif
+                    </span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="card p-4">
-                    <span class="fs-1">0</span>
+                    <span class="fs-1">{{ $noofStudents }}</span>
                     <hr>
                     <span class="fst-italic text-body-secondary">Students</span>
 
             </div>
-
         </div>
     </div>
 </body>

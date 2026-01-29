@@ -42,7 +42,8 @@ Route::controller(UserController::class)
     Route::post('/storeClass','storeClass')->name('storeClass');
     Route::post('/skillexchange','storeExchageSkills')->name('skillexchange');
     Route::get('/matching','matchMaking')->name('matching');
-
+    Route::get('/successful','success')->name('learning.success');
+    Route::post('/addedclass','learn')->name('learning.store');
 
 });
 

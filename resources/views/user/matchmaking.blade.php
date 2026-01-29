@@ -21,7 +21,7 @@
     <div class="container mt-5" style="padding-top: 120px;">
         <div class="row justify-content-center">
 
-            <div class="col-lg-8">
+            <div class="col-lg-8 mb-5">
                 <div class="card p-4">
                     <h2>Match making</h2>
                     <hr>
@@ -32,22 +32,38 @@
                     @else
                         @foreach($matches as $match)
                             <div class="border rounded p-3 mb-3">
-                                <h5>User: {{$matchinguser}}</h5>
+                                 <h5>User: {{ $match->user->name }}</h5>
 
                                 <p>
                                     <strong>Teaches:</strong>
 
-                                        <span class="badge bg-success">{{ $match->title}}</span>
+                                    @foreach($match->teach as $skill)
+                                        <span class="badge bg-success">{{ $skill }}</span>
+                                    @endforeach
+
 
                                 </p>
 
                                 <p>
                                     <strong>Wants in exchange:</strong>
                                     <span class="badge bg-primary">
-                                        {{ $exchange }}
+                                        {{ $match->exchange }}
                                     </span>
                                 </p>
+
+                                <a href="" class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('getClass{{ $match->id }}').submit();">
+                                    Enroll in Class <i class="bi bi-bookmark-plus"></i>
+                                </a>
+
+
+
                                 <button class="btn btn-primary">Get in touch <i class="bi bi-chat-dots"></i></button>
+                                <form action="{{ route('learning.store') }}" id="getClass{{ $match->id }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="course_title" value="{{ $match->teach[0] }}">
+                                    <input type="hidden" name="teacher_id" value="{{ $match->user->id }}">
+                                </form>
+
                             </div>
                         @endforeach
                     @endif

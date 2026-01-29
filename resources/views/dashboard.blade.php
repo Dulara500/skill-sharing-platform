@@ -78,12 +78,50 @@
             color: #fff;
         }
 
+        /* Entrance animation */
+        .card {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          cursor: pointer;
+          opacity: 0;
+          transform: translateY(30px);
+          animation: fadeInUp 0.6s forwards;
+        }
+
+        .row .col-md-3:nth-child(1) .card { animation-delay: 0.1s; }
+        .row .col-md-3:nth-child(2) .card { animation-delay: 0.2s; }
+        .row .col-md-3:nth-child(3) .card { animation-delay: 0.3s; }
+        .row .col-md-3:nth-child(4) .card { animation-delay: 0.4s; }
+
+        /* Hover effect */
+        .card:hover {
+          transform: translateY(-10px) scale(1.05);
+          box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Keyframes for fade-in-up effect */
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Icon bounce on hover */
+        .card i {
+          transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .card:hover i {
+          transform: rotate(15deg) scale(1.2);
+        }
+
+
     </style>
 </head>
 <body>
 
 
-@include('user.dashboardnav');
+@include('user.dashb2oardnav');
 @include('user.calender')
 <div class="container mt-4 pt-5">
     <div class="container mt-4">
@@ -126,10 +164,13 @@
             </div>
         </div>
     </div>
-
+    @php
+        use Illuminate\Support\Facades\Auth;
+    @endphp
     <div class="container mt-4">
         <div class="card shadow-sm border-0 rounded-4 p-4">
-            <h4 class="fw-bold mb-1">Hello there 👋</h4>
+
+            <h4 class="fw-bold mb-1">Hello {{ Auth::user()->name }} 👋</h4>
             <p class="text-muted mb-3">
               What would you like to do today?
             </p>
@@ -188,14 +229,14 @@
               <div class="col-md-4">
                 <div class="card p-3 shadow-sm rounded-4">
                   <span class="text-muted">Classes Learning</span>
-                  <h3 class="fw-bold">0</h3>
+                  <h3 class="fw-bold">{{ $noOfLessons }}</h3>
                 </div>
               </div>
 
               <div class="col-md-4">
                 <div class="card p-3 shadow-sm rounded-4">
                   <span class="text-muted">Classes Teaching</span>
-                  <h3 class="fw-bold">{{ $totalClasses }}</h3>
+                  <h3 class="fw-bold">{{ $classesTeaching }}</h3>
                 </div>
               </div>
 
@@ -213,7 +254,11 @@
     <div class="container mt-5 text-center">
         <div class="card p-5 shadow-sm border-0 rounded-4">
             <i class="bi bi-lightbulb fs-1 text-warning"></i>
-            <h5 class="mt-3 fw-bold">You haven't joined any classes yet</h5>
+            @if($noOfLessons == 0)
+                <h5 class="mt-3 fw-bold">You haven't joined any classes yet</h5>
+            @else
+                <h5 class="mt-3 fw-bold"> You have joined {{ $noOfLessons }} classes. Keep up the great work!</h5>
+            @endif
             <p class="text-muted">
               Start learning or share your knowledge with others.
             </p>

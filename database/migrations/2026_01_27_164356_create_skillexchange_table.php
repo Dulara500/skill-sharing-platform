@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('learning', function (Blueprint $table) {
+        Schema::create('skillexchange', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->String("course_title");
-            $table->boolean('is_completed')->default(false);
+            $table->unique('user_id');
+            $table->foreignID('user_id')->constrained()->onDelete('cascade');
+            $table->json('teach');
+            $table->string('exchange');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('learning');
+        Schema::dropIfExists('skillexchange');
     }
 };

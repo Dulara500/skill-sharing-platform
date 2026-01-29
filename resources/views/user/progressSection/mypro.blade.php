@@ -46,12 +46,21 @@
                         <button class="btn me-2 mt-3" data-bs-toggle="collapse" data-bs-target="#searchBar" type="button"><i class="bi bi-search "></i></button>
                     </form>
                     <hr>
-                    <span>You dont have any teachers yet</span>
+                    <span>
+                        @if($noofTeachers ==0)
+                            You dont have any teachers yet
+                        @else
+                            You have {{ $noofTeachers }} teachers
+                            @foreach ($teachersName as $name)
+                                <div>{{ $name->user->name }}</div>
+                            @endforeach
+                        @endif
+                    </span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="card p-4">
-                    <span class="fs-1">0</span>
+                    <span class="fs-1">{{ $noofTeachers }}</span>
                     <hr>
                     <span class="fst-italic text-body-secondary">Teachers</span>
 
