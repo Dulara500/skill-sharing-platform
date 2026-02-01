@@ -39,7 +39,9 @@
                     <span class="fw-bold">Reviews from students</span>
 
                     <hr>
-                    <span>You dont have any reviews from students yet</span>
+                    <span>
+
+                    </span>
                 </div>
             </div>
             <div class="col-lg-2">

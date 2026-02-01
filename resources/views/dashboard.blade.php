@@ -243,7 +243,7 @@
               <div class="col-md-4">
                 <div class="card p-3 shadow-sm rounded-4">
                   <span class="text-muted">Completed Sessions</span>
-                  <h3 class="fw-bold">0</h3>
+                  <h3 class="fw-bold">{{ $completedLessons }}</h3>
                 </div>
               </div>
             </div>
@@ -255,7 +255,7 @@
         <div class="card p-5 shadow-sm border-0 rounded-4">
             <i class="bi bi-lightbulb fs-1 text-warning"></i>
             @if($noOfLessons == 0)
-                <h5 class="mt-3 fw-bold">You haven't joined any classes yet</h5>
+                <h5 class="mt-3 fw-bold">You are currently not learning any classes</h5>
             @else
                 <h5 class="mt-3 fw-bold"> You have joined {{ $noOfLessons }} classes. Keep up the great work!</h5>
             @endif

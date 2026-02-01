@@ -17,8 +17,13 @@ class UserCheck extends Controller
         }else if(Auth::check() && Auth::user()->user_type=="user"){
             $currentUserId = Auth::id();
             $classesTeaching = Course::where('user_id',$currentUserId)->count();
-            $noOfLessons  = Learning::where('user_id',$currentUserId)->count();
-            return view('dashboard', compact('noOfLessons','classesTeaching'));
+            $noOfLessons  = Learning::where('user_id',$currentUserId)
+                            ->where('is_completed', false)
+                            ->count();
+            $completedLessons  = Learning::where('user_id',$currentUserId)
+                            ->where('is_completed', true)
+                            ->count();
+            return view('dashboard', compact('noOfLessons','classesTeaching','completedLessons'));
         }
     }
 }
