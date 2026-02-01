@@ -21,6 +21,8 @@
     <div class="container mt-5" style="padding-top: 120px;">
         <div class="row justify-content-center">
 
+
+
             <div class="col-lg-8 mb-5">
                 <div class="card p-4">
                     <h2>Match making</h2>
@@ -62,15 +64,15 @@
                                     @csrf
                                     <input type="hidden" name="course_title" value="{{ $match->teach[0] }}">
                                     <input type="hidden" name="teacher_id" value="{{ $match->user->id }}">
+                                    <input type="hidden" name="exchange" value="{{ $match->exchange }}">
                                 </form>
 
                             </div>
                         @endforeach
                     @endif
+
                 </div>
             </div>
-
-
         </div>
     </div>
 </body>

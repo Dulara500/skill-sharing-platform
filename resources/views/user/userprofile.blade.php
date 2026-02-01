@@ -13,6 +13,7 @@
             text-decoration: none;
             color: inherit;
         }
+
     </style>
 </head>
 <body>
@@ -40,12 +41,22 @@
                 use Illuminate\Support\Facades\Auth;
             @endphp
 
-            <div class="col lg 8">
+            <div class="col-lg-8 position-relative">
                 <div class="card">
                     <span class="fs-2 fw-bold p-4">Hello! i'm {{ Auth::user()->name }}</span>
                 </div>
+                @if(session('success'))
+                    <div class="card text-center mb-3 position-fixed top-40 start-50 translate-middle glass-card" style="z-index:9999;" id="success-message">
+                        <div class="card-body bg-primary text-white rounded">
+                            {{ session('success') }}
+                            <hr>
+                            <a href="{{ route('matching') }}" class="text-decoration-none text-white">find if there are any matches for your skills</a>
+                        </div>
+                    </div>
+                @endif
                 <div class="card my-4 ">
                     <h3 class="ms-5 mt-4">Match making secssion</h3>
+                    <p class="ms-5 mt-4">post your request here</p>
                     <hr>
                     <form action="{{ route('skillexchange') }}" method="post">
                         @csrf
@@ -88,3 +99,9 @@
 </html>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{{-- <script>
+setTimeout(() => {
+   let msg = document.getElementById('success-message');
+   if(msg) msg.style.display = 'none';
+}, 2000);
+</script> --}}

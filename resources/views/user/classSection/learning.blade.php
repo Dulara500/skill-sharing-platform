@@ -55,13 +55,21 @@
                         @else
                             @foreach ($classes as $class)
                                 <ul>
-                                    <li>{{ $class->course_title }}</li>
+                                    <li>{{ $class->course_title}} <a href={{ route('user.viewClass',$class->course_title) }} class="btn btn-sm btn-outline-primary float-end">view class</a>
+                                    @if($class->is_completed)
+                                        <span class="badge bg-success float-end me-2">Completed</span>
+                                    @endif
+                                    </li>
                                 </ul>
+
+
+
                             @endforeach
                         @endif
 
 
                     </span>
+
                 </div>
             </div>
             <div class="col-lg-3">
