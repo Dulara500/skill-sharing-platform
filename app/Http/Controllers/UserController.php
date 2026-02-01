@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Course;
 use App\Models\User;
 use App\Models\Learning;
+use App\Models\stu_review;
 
 class UserController extends Controller
 {
@@ -59,14 +60,35 @@ class UserController extends Controller
     public function learning(){
         $currentUserId = Auth::id();
         $classes = Learning::where('user_id',$currentUserId)->get();
-        $noOfLessons  = Learning::where('user_id',$currentUserId)->count();
+        $noOfLessons  = Learning::where('user_id',$currentUserId)
+                        ->where('is_completed', false)
+                        ->count();
         return view('user.classSection.learning', compact('noOfLessons','classes'));
+    }
+
+    public function viewClass($class){
+        $currentUserId = Auth::id();
+        $match = Learning::where('user_id',$currentUserId)
+            ->where('course_title',$class)
+            ->first();
+
+        if (! $match) {
+            return redirect()->back()->with('error', 'Class not found or you are not enrolled.');
+        }
+
+        $course_details = Course::where('user_id',$match->teacher_id)
+            ->where('title',$class)
+            ->with('user')
+            ->first();
+
+        return view('user.view_class', compact('course_details','match'));
     }
 
     public function mypro(){
         $currentUserId = Auth::id();
         $noofTeachers = Learning::where('user_id',$currentUserId)->distinct()->get('teacher_id')->count();
-        $teachersName = Learning::where('user_id',$currentUserId)->with('user')->get();
+        $teacher = Learning::where('user_id',$currentUserId)->get('teacher_id');
+        $teachersName = User::whereIn('id',$teacher)->get();
         return view('user.progressSection.mypro', compact('noofTeachers','teachersName'));
     }
     public function stupro(){
@@ -144,7 +166,7 @@ class UserController extends Controller
             'exchange' => $exchange,
             ]
         );
-        return redirect()->route('matching');
+        return redirect()->back()->with('success', 'Record has been added');
     }
 
     public function matchMaking()
@@ -170,7 +192,7 @@ class UserController extends Controller
             ->with('user')
             ->get();
 
-        return view('user.matchmaking', compact('matches'));
+        return view('user.matchmaking', compact('matches','myWant'));
     }
 
 
@@ -181,10 +203,44 @@ class UserController extends Controller
             'teacher_id' => $request->teacher_id,
             'course_title' => $request->course_title,
         ]);
+        Learning::firstOrCreate([
+            'user_id' => $request->teacher_id,
+            'teacher_id' => auth()->id(),
+            'course_title' => $request->exchange,
+        ]);
+
         return redirect()->route('learning.success');
     }
 
+    public function courseCompleted(Request $request, $match){
+        $currentUserId = Auth::id();
 
+        $course = Learning::find($match);
+
+            $course->is_completed = true;
+            $course->save();
+
+
+        return redirect()->back()->with('success', 'Course marked as completed.');
+    }
+
+    public function reviewStore(Request $request){
+        $request->validate([
+            'review' => 'required|string|max:500',
+        ]);
+        $currentUserId = Auth::id();
+        stu_review::updateOrCreate(
+            ['Student_id' => $currentUserId,
+            'Teacher_id' => $request->teacher_id,
+            'course_title' => $request->course_title,
+            ], [
+            'review' => $request->review,
+            ]
+        );
+
+        return redirect()->to(url()->previous() . '#review_section')->with('success', 'Review submitted successfully.');
+
+    }
 
 
 
