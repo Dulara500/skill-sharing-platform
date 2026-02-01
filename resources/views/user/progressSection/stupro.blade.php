@@ -52,7 +52,10 @@
                         @else
                             You have {{ $noofStudents }} students.
                             @foreach ($studentnames as $student)
-                                <div class="ms-5"><i class="bi bi-person"></i> {{ $student->user->name }}</div>
+                                <ul>
+                                    <li class="ms-5"><i class="bi bi-person"></i> {{ $student->user->name }} <a href={{ route('student.evaluation') }} class="btn btn-sm btn-outline-primary float-end">Evaluate</a></li>
+                                </ul>
+
                             @endforeach
                         @endif
                     </span>

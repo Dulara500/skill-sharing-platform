@@ -16,9 +16,11 @@ class UserController extends Controller
     public function dash()
     {
         $currentUserId = Auth::id();
-        $cl = Learning::where('user_id',$currentUserId)->get();
-        $no  = Learning::where('user_id',$currentUserId)->count();
-        return view('user.userdashboard', compact('no','cl'));
+        $classesTeaching = Learning::where('user_id',$currentUserId)->get();
+        $noOfLessons  = Learning::where('user_id',$currentUserId)
+                        ->where('is_completed', false)
+                        ->count();
+        return view('user.userdashboard', compact('noOfLessons','classesTeaching'));
     }
 
     public function inbox()
@@ -42,7 +44,12 @@ class UserController extends Controller
 
     public function reviews()
     {
-        return view('user.reviewSection.stureview');
+        $currentUserId = Auth::id();
+        $reviews = stu_review::where('Teacher_id',$currentUserId)
+        ->with('user')
+        ->get();
+        $count = $reviews->count();
+        return view('user.reviewSection.stureview',compact('reviews','count'));
     }
 
     public function messages(){
@@ -99,9 +106,15 @@ class UserController extends Controller
     }
 
     public function stureview(){
-        return view('user.reviewSection.stureview');
+        $currentUserId = Auth::id();
+        $reviews = stu_review::where('Teacher_id',$currentUserId)
+        ->with('user')
+        ->get();
+        $count = $reviews->count();
+        return view('user.reviewSection.stureview', compact('reviews','count'));
     }
     public function teareviews(){
+
         return view('user.reviewSection.teareviews');
     }
     public function profile(){
@@ -240,6 +253,10 @@ class UserController extends Controller
 
         return redirect()->to(url()->previous() . '#review_section')->with('success', 'Review submitted successfully.');
 
+    }
+
+    public function StuEvaluate(){
+        return view('user.studentEvaluation');
     }
 
 

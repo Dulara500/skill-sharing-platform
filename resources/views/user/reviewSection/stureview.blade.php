@@ -40,13 +40,30 @@
 
                     <hr>
                     <span>
+                        @if($reviews->isEmpty())
+                            <p class="text-center text-muted">
+                                No reviews found yet
+                            </p>
+                        @else
+                            @foreach ($reviews as $review)
+                                <div class="mb-3">
+                                    <span class="d-block">
+                                        <p class="mb-1">Review from : {{ $review->user?->name ?? 'Unknown Student' }}</p>
+                                        <p class="mb-1">course: {{ $review->course_title }}</p>
+                                        <p class="mb-1"> Review: {{ $review->review }}</p>
+                                    </span>
 
+                                    <hr>
+                                </div>
+
+                            @endforeach
+                        @endif
                     </span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="card p-4">
-                    <span class="fs-1">0</span>
+                    <span class="fs-1">{{ $count }}</span>
                     <hr>
                     <span class="fst-italic text-body-secondary">Reviews</span>
 

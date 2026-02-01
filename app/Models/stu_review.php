@@ -12,4 +12,9 @@ class stu_review extends Model
         'course_title',
         'review',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'Student_id');
+    }
 }

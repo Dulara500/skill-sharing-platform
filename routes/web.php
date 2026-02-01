@@ -47,6 +47,7 @@ Route::controller(UserController::class)
     Route::get('/viewClass/{class}','viewClass')->name('user.viewClass');
     Route::post('/courseCompleted/{id}','courseCompleted')->name('course.completed');
     Route::post('/submitReview','reviewStore')->name('submit.review');
+    Route::get('/studentEvaluation','StuEvaluate')->name('student.evaluation');
 });
 
 Route::controller(AdminController::class)

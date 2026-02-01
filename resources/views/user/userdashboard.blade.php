@@ -68,14 +68,20 @@
                 <h5 class="fw-bold">Currently learning</h5>
                 <hr>
                 <span>
-                    @if($cl->isEmpty())
+                    @if($classesTeaching->isEmpty())
                             <p>You haven't joined any classes yet</p>
                         @else
-                            <p>you have {{ $no}} lessons</p>
-                            @foreach ($cl as $class)
-                                <ul>
-                                    <li>{{ $class->course_title }}</li>
-                                </ul>
+                            <p>you have {{ $noOfLessons}} lessons</p>
+                            @foreach ($classesTeaching as $class)
+                                @if($class->is_completed)
+                                    <ul>
+                                        <li>{{ $class->course_title }} - completed</li>
+                                    </ul>
+                                @else
+                                    <ul>
+                                        <li>{{ $class->course_title }}</li>
+                                    </ul>
+                                @endif
                             @endforeach
                         @endif
                 </span>
