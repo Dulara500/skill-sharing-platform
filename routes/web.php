@@ -44,7 +44,9 @@ Route::controller(UserController::class)
     Route::get('/matching','matchMaking')->name('matching');
     Route::get('/successful','success')->name('learning.success');
     Route::post('/addedclass','learn')->name('learning.store');
-
+    Route::get('/viewClass/{class}','viewClass')->name('user.viewClass');
+    Route::post('/courseCompleted/{id}','courseCompleted')->name('course.completed');
+    Route::post('/submitReview','reviewStore')->name('submit.review');
 });
 
 Route::controller(AdminController::class)
