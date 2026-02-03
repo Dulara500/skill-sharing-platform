@@ -52,6 +52,7 @@
                         <div class="mt-3">
                             <button class="btn btn-outline-secondary ms-2">Download Material</button>
                             <button class="btn btn-outline-secondary ms-2">Attend the qize</button>
+                            <a href="{{ route('report', ['teacher_id' => $match->teacher_id, 'course_title' => $match->course_title]) }}" class="btn btn-danger float-end">Report</a>
                         </div>
 
                         @if($match->is_completed)
@@ -67,6 +68,7 @@
                                         <input type="hidden" name="course_title" id="course_title" value="{{ $match->course_title }}">
                                     </div>
                                     <button type="submit" class="btn btn-success">Submit Review</button>
+
                                 </form>
                                 @if(session('success'))
                                     <div class="alert alert-success mt-3">
