@@ -34,7 +34,7 @@
             <div class="col-md-3">
                 <div class="card shadow-sm p-3">
                     <h6>Pending Reports</h6>
-                    <h3>9</h3>
+                    <h3>{{ $noOfReports }}</h3>
                 </div>
             </div>
         </div>

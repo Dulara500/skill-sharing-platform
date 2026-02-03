@@ -13,14 +13,9 @@
                 <span><a href={{ route('admin.users') }} class="nav-link sidebar-link text-dark">👥 User</a></span>
             </li>
             <li class="nav-item my-2">
-                <span><a href="" class="nav-link sidebar-link text-dark">🚨 Reports</a></span>
+                <span><a href="{{ route('admin.reports') }}" class="nav-link sidebar-link text-dark">🚨 Reports</a></span>
             </li>
-            <li class="nav-item my-2">
-                <span><a href="" class="nav-link sidebar-link text-dark">📈 Analytics</a></span>
-            </li>
-            <li class="nav-item my-2">
-                <span><a href="" class="nav-link sidebar-link text-dark">⚙ Settings</a></span>
-            </li>
+
             <li class="nav-item my-2">
                 <span><a href="" class="nav-link sidebar-link text-dark" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">🚪 Logout</a></span>
             </li>
@@ -34,5 +29,7 @@
 
     @yield('admin_content')
     @yield('users')
+    @yield('report')
+    @yield('viewcourse')
 </div>
 @endsection

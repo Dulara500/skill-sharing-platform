@@ -53,14 +53,24 @@
                         @if($classes->isEmpty())
                             <p>You haven't joined any classes yet</p>
                         @else
+                        @if(session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                        @endif
                             @foreach ($classes as $class)
-                                <ul>
-                                    <li>{{ $class->course_title}} <a href={{ route('user.viewClass',$class->course_title) }} class="btn btn-sm btn-outline-primary float-end">view class</a>
+
+
+                                    <ul>
+
+                                    <li>{{ $class->course_title}} <a href={{ route('user.viewClass', ['class' => $class->course_title, 'teacher_id' => $class->teacher_id]) }} class="btn btn-sm btn-outline-primary float-end">view class</a>
                                     @if($class->is_completed)
                                         <span class="badge bg-success float-end me-2">Completed</span>
                                     @endif
                                     </li>
                                 </ul>
+
+
 
 
 
@@ -92,7 +102,7 @@
                 </div>
             </div>
             <div>
-                <h2 class="text-primary flex position-absolute top-50 start-40"><a href={{ route('profile') }}>Skill share section</a> </h2>
+                <h2 class="text-primary flex position-absolute top-50 start-40"><a href={{ route('profile') }}>Share skills</a> </h2>
             </div>
 
         </div>

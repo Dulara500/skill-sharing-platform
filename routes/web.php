@@ -44,10 +44,13 @@ Route::controller(UserController::class)
     Route::get('/matching','matchMaking')->name('matching');
     Route::get('/successful','success')->name('learning.success');
     Route::post('/addedclass','learn')->name('learning.store');
-    Route::get('/viewClass/{class}','viewClass')->name('user.viewClass');
+    Route::get('/viewClass/{class}/{teacher_id}','viewClass')->name('user.viewClass');
     Route::post('/courseCompleted/{id}','courseCompleted')->name('course.completed');
     Route::post('/submitReview','reviewStore')->name('submit.review');
-    Route::get('/studentEvaluation','StuEvaluate')->name('student.evaluation');
+    Route::get('/studentEvaluation/{studentId}','StuEvaluate')->name('student.evaluation');
+    Route::post('/teareviewStore','teareviewStore')->name('teareview.store');
+    Route::get('/report/{teacher_id}/{course_title}','report')->name('report');
+    Route::post('/submitReport','storeReport')->name('submit.report');
 });
 
 Route::controller(AdminController::class)
@@ -57,6 +60,10 @@ Route::controller(AdminController::class)
     Route::get('/admin/users','users')->name('admin.users');
     Route::get('/admin/dashboard','dashboard')->name('admin.dashboard');
     Route::post('/admin/delete/{id}','deleteUser')->name('admin.deleteUser');
+    Route::get('/admin/reports','reports')->name('admin.reports');
+    Route::post('/admin/reports','reports');
+    Route::post('/admin/deleteReport/{course_id}/{report_id}','deleteReport')->name('admin.deleteReport');
+    Route::get('/admin/viewcourse/{course_id}','viewcourse')->name('admin.viewcourse');
 
 });
 

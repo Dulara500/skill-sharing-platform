@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AdminController;
 use App\Models\Learning;
 use App\Models\Course;
+use App\Models\report;
 
 class UserCheck extends Controller
 {
     public function index(){
         if(Auth::check() && Auth::user()->user_type=='admin'){
-            return view('admin.dashboard',[AdminController::class,"index"]);
+            $noOfReports = report::count();
+            return view('admin.dashboard',[AdminController::class,"index"], compact('noOfReports'));
         }else if(Auth::check() && Auth::user()->user_type=="user"){
             $currentUserId = Auth::id();
             $classesTeaching = Course::where('user_id',$currentUserId)->count();

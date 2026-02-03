@@ -53,9 +53,14 @@
                             You have {{ $noofStudents }} students.
                             @foreach ($studentnames as $student)
                                 <ul>
-                                    <li class="ms-5"><i class="bi bi-person"></i> {{ $student->user->name }} <a href={{ route('student.evaluation') }} class="btn btn-sm btn-outline-primary float-end">Evaluate</a></li>
-                                </ul>
+                                    <li class="ms-5"><i class="bi bi-person"></i> {{ $student->user->name }}
 
+                                        <a href={{ route('student.evaluation', ['studentId' => $student->user->id]) }} class="btn btn-sm btn-outline-primary float-end">Evaluate</a>
+                                        @if($student->is_completed)
+                                            <span class="badge bg-success float-end me-2">Completed the course</span>
+                                        @endif
+                                    </li>
+                                </ul>
                             @endforeach
                         @endif
                     </span>

@@ -1,8 +1,9 @@
 @extends('admin.adminLayouts.sliderbar')
 @section('users')
-<div class="card shadow-sm ps-3">
-    <h4>Users</h4>
-</div>
+<nav class="navbar navbar-light bg-white shadow-sm rounded mb-4 px-3">
+    <span class="navbar-brand mb-0 h5">Users</span>
+    <span class="text-muted">Admin Panel</span>
+</nav>
 <table class="table table-bordered mt-4">
 
     <tr>

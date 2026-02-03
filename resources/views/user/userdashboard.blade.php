@@ -38,7 +38,11 @@
             <div class="card p-4 mb-4">
                 <h5 class="fw-bold">Exchange skills</h5>
                 <hr>
+                @if($coursesFromCurrentUser->isEmpty())
+                    <a href={{ 'teaching' }}><p>You need to add courses to exchange skills.</p></a>
+                @else
                 <span><a href={{ route('profile') }}>Tell us about what your skills and what you are interested in learning</a></span>
+                @endif
 
             </div>
 

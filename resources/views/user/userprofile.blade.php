@@ -56,29 +56,34 @@
                 @endif
                 <div class="card my-4 ">
                     <h3 class="ms-5 mt-4">Match making secssion</h3>
-                    <p class="ms-5 mt-4">post your request here</p>
                     <hr>
-                    <form action="{{ route('skillexchange') }}" method="post">
-                        @csrf
-                        <div class="d-flex">
-                            <div class="p-5">
-                                <label class="form-lable fw-bold">willing to teach:</label>
-                                <input type="text" class="form-control" name="teach" id="teach" placeholder="eg: Guitar or Spanish">
+                    @if($coursesFromCurrentUser->isEmpty())
+                        <a href={{ 'teaching' }}><p class="ms-5">You need to add courses to access this section.</p></a>
+
+                    @else
+                        <p class="ms-5 mt-4">post your request here</p>
+                        <form action="{{ route('skillexchange') }}" method="post">
+                            @csrf
+                            <div class="d-flex">
+                                <div class="p-5">
+                                    <label class="form-lable fw-bold">willing to teach:</label>
+                                    <input type="text" class="form-control" name="teach" id="teach" placeholder="eg: Guitar or Spanish">
+                                </div>
+                                <div class="p-5">
+                                    <label class="form-lable fw-bold">In exchange:</label>
+                                    <input type="text" class="form-control" name="exchange" id="exchange" placeholder="Marketing">
+                                </div>
+
                             </div>
-                            <div class="p-5">
-                                <label class="form-lable fw-bold">In exchange:</label>
-                                <input type="text" class="form-control" name="exchange" id="exchange" placeholder="Marketing">
+                            <div class="d-flex justify-content-center m-1">
+                                <button type="submit" class="btn btn-primary flex-fill ">
+                                    Submit
+                                </button>
                             </div>
 
-                        </div>
-                        <div class="d-flex justify-content-center m-1">
-                            <button type="submit" class="btn btn-primary flex-fill ">
-                                Submit
-                            </button>
-                        </div>
 
-
-                    </form>
+                        </form>
+                    @endif
                 </div>
                 <div class="card mb-5">
                     <h3 class="ms-5 mt-4">Don't have anything to share?</br> Dont worry we got you</h3>

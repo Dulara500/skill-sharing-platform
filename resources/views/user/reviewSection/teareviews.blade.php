@@ -39,12 +39,23 @@
                     <span class="fw-bold">Reviews from teachers</span>
 
                     <hr>
-                    <span>You dont have any reviews from teacher yet</span>
+                    @if($teacherreview->isEmpty())
+                        <span>No reviews from teachers yet.</span>
+                    @else
+                        @foreach($teacherreview as $review)
+                            <div class="mb-3">
+                                <span class="fw-semibold">Teacher Name: {{ $review->user->name }}</span>
+                                <span class="fw-semibold"><p>Course taken: {{ $review->course_title }}</p></span>
+                                <p>Review from teacher: {{ $review->review }}</p>
+                                <hr>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="card p-4">
-                    <span class="fs-1">0</span>
+                    <span class="fs-1">{{ $teacherreviewcount }}</span>
                     <hr>
                     <span class="fst-italic text-body-secondary">Reviews</span>
 
