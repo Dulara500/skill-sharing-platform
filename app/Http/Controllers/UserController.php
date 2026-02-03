@@ -9,6 +9,8 @@ use App\Models\Course;
 use App\Models\User;
 use App\Models\Learning;
 use App\Models\stu_review;
+use App\Models\teacher_review;
+use App\Models\report;
 
 class UserController extends Controller
 {
@@ -20,7 +22,8 @@ class UserController extends Controller
         $noOfLessons  = Learning::where('user_id',$currentUserId)
                         ->where('is_completed', false)
                         ->count();
-        return view('user.userdashboard', compact('noOfLessons','classesTeaching'));
+        $coursesFromCurrentUser = Course::where('user_id',$currentUserId)->get();
+        return view('user.userdashboard', compact('noOfLessons','classesTeaching','coursesFromCurrentUser'));
     }
 
     public function inbox()
@@ -39,6 +42,7 @@ class UserController extends Controller
         $currentUserId = Auth::id();
         $noofStudents = Learning::where('teacher_id',$currentUserId)->count();
         $studentnames = Learning::where('teacher_id',$currentUserId)->with('user')->get();
+
         return view('user.progressSection.stupro', compact('noofStudents','studentnames'));
     }
 
@@ -48,6 +52,7 @@ class UserController extends Controller
         $reviews = stu_review::where('Teacher_id',$currentUserId)
         ->with('user')
         ->get();
+
         $count = $reviews->count();
         return view('user.reviewSection.stureview',compact('reviews','count'));
     }
@@ -73,10 +78,11 @@ class UserController extends Controller
         return view('user.classSection.learning', compact('noOfLessons','classes'));
     }
 
-    public function viewClass($class){
+    public function viewClass($class,$teacher_id){
         $currentUserId = Auth::id();
         $match = Learning::where('user_id',$currentUserId)
             ->where('course_title',$class)
+            ->where('teacher_id',$teacher_id)
             ->first();
 
         if (! $match) {
@@ -88,6 +94,9 @@ class UserController extends Controller
             ->with('user')
             ->first();
 
+        if (! $course_details) {
+            return redirect()->back()->with('error', 'Course has been deleted by the admin due to a report.');
+        }
         return view('user.view_class', compact('course_details','match'));
     }
 
@@ -102,6 +111,7 @@ class UserController extends Controller
         $currentUserId = Auth::id();
         $noofStudents = Learning::where('teacher_id',$currentUserId)->count();
         $studentnames = Learning::where('teacher_id',$currentUserId)->with('user')->get();
+
         return view('user.progressSection.stupro', compact('noofStudents','studentnames'));
     }
 
@@ -114,11 +124,20 @@ class UserController extends Controller
         return view('user.reviewSection.stureview', compact('reviews','count'));
     }
     public function teareviews(){
-
-        return view('user.reviewSection.teareviews');
+        $currentUserId = Auth::id();
+        $teacherreview = teacher_review::where('Student_id',$currentUserId)
+        ->with('user')
+        ->get();
+        $teacherreviewcount = teacher_review::where('Student_id',$currentUserId)
+        ->with('user')
+        ->get()
+        ->count();
+        return view('user.reviewSection.teareviews',compact('teacherreview','teacherreviewcount'));
     }
     public function profile(){
-        return view('user.userprofile');
+        $currentUserId = Auth::id();
+        $coursesFromCurrentUser = Course::where('user_id',$currentUserId)->get();
+        return view('user.userprofile', compact('coursesFromCurrentUser'));
     }
     public function createclass(){
         return view('user.classSection.createclass');
@@ -205,7 +224,9 @@ class UserController extends Controller
             ->with('user')
             ->get();
 
-        return view('user.matchmaking', compact('matches','myWant'));
+        $user_ids = $matches->pluck('user_id')->toArray();
+
+        return view('user.matchmaking', compact('matches','myWant','user_ids'));
     }
 
 
@@ -234,7 +255,7 @@ class UserController extends Controller
             $course->save();
 
 
-        return redirect()->back()->with('success', 'Course marked as completed.');
+        return redirect()->to(url()->previous() . '#review_section')->with('success', 'Course marked as completed.');
     }
 
     public function reviewStore(Request $request){
@@ -251,12 +272,66 @@ class UserController extends Controller
             ]
         );
 
-        return redirect()->to(url()->previous() . '#review_section')->with('success', 'Review submitted successfully.');
+        return redirect()->route('learning')->with('success', 'Review submitted successfully.');
 
     }
 
-    public function StuEvaluate(){
-        return view('user.studentEvaluation');
+    public function StuEvaluate($studentId){
+        $currentUserId = Auth::id();
+        $stucourse = Learning::where('teacher_id',$currentUserId)->get('course_title');
+        $studentname = Learning::where('teacher_id',$currentUserId)
+             ->where('user_id',$studentId)
+             ->with('user')
+             ->first();
+
+        return view('user.studentEvaluation', compact('stucourse','studentname','studentId'));
+    }
+
+    public function teareviewStore(Request $request){
+        $request->validate([
+            'review' => 'required|string|max:500',
+        ]);
+        $currentUserId = Auth::id();
+        teacher_review::updateOrCreate(
+            [
+            'Teacher_id' => $request->teacher_id,
+            'Student_id' => $request->user_id,
+            'Student_name' => $request->name,
+            'course_title' => $request->course_title,
+            ],
+            [
+            'review' => $request->review,
+            ]
+        );
+
+        return redirect()->back()->with('success', 'Review submitted successfully.');
+
+    }
+
+    public function report($teacher_id,$course_title){
+        $currentUserId = Auth::id();
+        $course_id = Course::where('user_id',$teacher_id)
+            ->where('title',$course_title)
+            ->first()
+            ->id;
+        return view('user.report', compact('teacher_id','course_title','course_id'));
+    }
+
+    public function storeReport(Request $request){
+        $request->validate([
+            'report' => 'required|string|max:1000',
+        ]);
+        $currentUserId = Auth::id();
+        report::create([
+            'user_id' => $currentUserId,
+            'teacher_id' => $request->teacher_id,
+            'course_id' => $request->course_id,
+            'course_title' => $request->course_title,
+            'report' => $request->report,
+        ]);
+
+        return redirect()->route('learning')->with('success', 'Report submitted successfully.');
+
     }
 
 
