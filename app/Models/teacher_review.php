@@ -9,6 +9,7 @@ class teacher_review extends Model
     protected $fillable = [
         'Teacher_id',
         'Student_id',
+        'Student_name',
         'course_title',
         'review',
     ];
