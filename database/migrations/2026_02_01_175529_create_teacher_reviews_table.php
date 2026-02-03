@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('Teacher_id');
             $table->unsignedBigInteger('Student_id');
+            $table->string('Student_name');
             $table->string('course_title');
             $table->text('review');
             $table->timestamps();
